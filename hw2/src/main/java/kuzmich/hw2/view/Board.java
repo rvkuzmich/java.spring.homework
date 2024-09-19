@@ -16,7 +16,6 @@ public class Board {
 
     public void newTicket(String name, String lastname) {
         Ticket ticket = new Ticket(ticketNumberGenerator.createNewNumber(), name, lastname);
-
         System.out.printf("%s\nDate %s\nTicket for %s %s\n", ticket.getNumber(), ticket.getCreatedAt(), ticket.getName(), ticket.getLastname());
     }
 }
