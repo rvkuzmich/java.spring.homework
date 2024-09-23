@@ -14,7 +14,7 @@ public class Hw2Application {
 		Board board = context.getBean(Board.class);
 
 		board.newTicket("Roman", "Kuzmich");
-		board.newTicket("Nadezhda", "Grishina");g
+		board.newTicket("Nadezhda", "Grishina");
 	}
 
 }
