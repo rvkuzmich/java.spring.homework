@@ -36,11 +36,11 @@ public class TimesheetService {
         repository.delete(id);
     }
 
-    public List<Timesheet> filterByDateAfter(LocalDateTime createdAfter) {
+    public List<Timesheet> filterByDateAfter(LocalDate createdAfter) {
         return repository.filterByDateAfter(createdAfter);
     }
 
-    public List<Timesheet> filterByDateBefore(LocalDateTime createdBefore) {
+    public List<Timesheet> filterByDateBefore(LocalDate createdBefore) {
         return repository.filterByDateBefore(createdBefore);
     }
 }

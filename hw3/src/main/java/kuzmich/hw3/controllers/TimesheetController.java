@@ -8,8 +8,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.Month;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,19 +56,15 @@ public class TimesheetController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-    @GetMapping("/timesheets?createdAtAfter={year}-{month}-{day}")
-    public ResponseEntity<List<Timesheet>> filterCreatedAtAfter(@RequestParam("year") int year,
-                                                                @RequestParam("month") int month,
-                                                                @RequestParam("day") int day) {
-        LocalDateTime localDateTime = LocalDateTime.of(year, month, day, 0,0);
-        return ResponseEntity.status(HttpStatus.FOUND).body(service.filterByDateAfter(localDateTime));
+    @GetMapping("/timesheets?createdAtAfter")
+    public ResponseEntity<List<Timesheet>> filterCreatedAtAfter(@RequestParam("createdAtAfter") String date) {
+        LocalDate localDate = LocalDate.parse(date);
+        return ResponseEntity.status(HttpStatus.FOUND).body(service.filterByDateAfter(localDate));
     }
 
-    @GetMapping("/timesheets?createdAtBefore={year}-{month}-{day}")
-    public ResponseEntity<List<Timesheet>> filterCreatedAtBefore(@RequestParam("year") int year,
-                                                                 @RequestParam("month") int month,
-                                                                 @RequestParam("day")int day) {
-        LocalDateTime localDateTime = LocalDateTime.of(year, month, day, 0, 0);
-        return ResponseEntity.status(HttpStatus.FOUND).body(service.filterByDateBefore(localDateTime));
+    @GetMapping("/timesheets?CreatedAtBefore")
+    public ResponseEntity<List<Timesheet>> filterCreatedAtBefore(@RequestParam("createdAtBefore") String date) {
+        LocalDate localDate = LocalDate.parse(date);
+        return ResponseEntity.status(HttpStatus.FOUND).body(service.filterByDateBefore(localDate));
     }
 }
