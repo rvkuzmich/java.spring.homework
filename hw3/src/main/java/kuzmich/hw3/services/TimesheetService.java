@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,11 +35,8 @@ public class TimesheetService {
         repository.delete(id);
     }
 
-    public List<Timesheet> filterByDateAfter(LocalDate createdAfter) {
-        return repository.filterByDateAfter(createdAfter);
+    public List<Timesheet> filterByDate(LocalDate createdAtBefore, LocalDate createdAtAfter) {
+        return repository.filterByDate(createdAtBefore, createdAtAfter);
     }
 
-    public List<Timesheet> filterByDateBefore(LocalDate createdBefore) {
-        return repository.filterByDateBefore(createdBefore);
-    }
 }

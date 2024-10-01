@@ -4,13 +4,12 @@ import kuzmich.hw3.model.Timesheet;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
 @Repository
 public class TimesheetRepository {
@@ -29,6 +28,7 @@ public class TimesheetRepository {
 
     public Timesheet create(Timesheet timesheet) {
         timesheet.setId(sequence++);
+        timesheet.setCreatedAt(LocalDate.now());
         timesheets.add(timesheet);
         return timesheet;
     }
@@ -40,17 +40,19 @@ public class TimesheetRepository {
                 .ifPresent(timesheets::remove);
     }
 
-    public List<Timesheet> filterByDateAfter(LocalDate createdAtAfter) {
-        List<Timesheet> res = timesheets.stream()
-                .filter(t -> t.getCreatedAt().isAfter(ChronoLocalDate.from(createdAtAfter)))
-                .toList();
-        return res;
-    }
+    public List<Timesheet> filterByDate(LocalDate createdAtBefore, LocalDate createdAtAfter) {
+        Predicate<Timesheet> filter = it -> true;
 
-    public List<Timesheet> filterByDateBefore(LocalDate createdAtBefore) {
-        List<Timesheet> res = timesheets.stream()
-                .filter(t -> t.getCreatedAt().isBefore(ChronoLocalDate.from(createdAtBefore)))
+        if (Objects.nonNull(createdAtBefore)) {
+            filter = filter.and(it -> it.getCreatedAt().isBefore(ChronoLocalDate.from(createdAtBefore)));
+        }
+
+        if (Objects.nonNull(createdAtAfter)) {
+            filter = filter.and(it -> it.getCreatedAt().isAfter(ChronoLocalDate.from(createdAtAfter)));
+        }
+
+        return timesheets.stream()
+                .filter(filter)
                 .toList();
-        return res;
     }
 }
