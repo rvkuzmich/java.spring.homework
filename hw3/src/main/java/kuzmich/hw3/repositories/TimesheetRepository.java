@@ -49,7 +49,7 @@ public class TimesheetRepository {
 
     public List<Timesheet> filterByDateBefore(LocalDate createdAtBefore) {
         List<Timesheet> res = timesheets.stream()
-                .filter(t -> t.getCreatedAt().isAfter(ChronoLocalDate.from(createdAtBefore)))
+                .filter(t -> t.getCreatedAt().isBefore(ChronoLocalDate.from(createdAtBefore)))
                 .toList();
         return res;
     }
