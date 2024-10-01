@@ -40,6 +40,7 @@ public class ProjectController {
         project = projectService.createProject(project);
         return ResponseEntity.status(HttpStatus.CREATED).body(project);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
         projectService.deleteProject(id);

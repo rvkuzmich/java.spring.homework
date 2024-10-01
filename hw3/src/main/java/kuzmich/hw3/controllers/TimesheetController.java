@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -56,15 +57,11 @@ public class TimesheetController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-    @GetMapping("/timesheets?createdAtAfter")
-    public ResponseEntity<List<Timesheet>> filterCreatedAtAfter(@RequestParam("createdAtAfter") String date) {
-        LocalDate localDate = LocalDate.parse(date);
-        return ResponseEntity.status(HttpStatus.FOUND).body(service.filterByDateAfter(localDate));
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<Timesheet>> filterByDate(@RequestParam(required = false) LocalDate createdAtBefore,
+                                                        @RequestParam(required = false) LocalDate createdAtAfter) {
+        return ResponseEntity.status(HttpStatus.FOUND).body(service.filterByDate(createdAtBefore, createdAtAfter));
     }
 
-    @GetMapping("/timesheets?CreatedAtBefore")
-    public ResponseEntity<List<Timesheet>> filterCreatedAtBefore(@RequestParam("createdAtBefore") String date) {
-        LocalDate localDate = LocalDate.parse(date);
-        return ResponseEntity.status(HttpStatus.FOUND).body(service.filterByDateBefore(localDate));
-    }
 }
