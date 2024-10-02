@@ -1,6 +1,6 @@
 package kuzmich.hw4.controllers;
 
-import kuzmich.hw4.services.MyProjectPageService;
+import kuzmich.hw4.services.ProjectPageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProjectPageController {
 
-    private final MyProjectPageService projectPageService;
+    private final ProjectPageService projectPageService;
 
     @GetMapping
     public String getAllProjectsPage (Model model) {
