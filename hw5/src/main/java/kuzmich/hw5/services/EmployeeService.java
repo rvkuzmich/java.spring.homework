@@ -48,14 +48,12 @@ public class EmployeeService {
         return timesheetRepository.findByEmployeeId(id);
     }
 
-    public void addProject(Long id, Long projectId) {
+    public void addProject(Long id, Project project) {
         if (employeeRepository.findById(id).isEmpty()) {
             throw new NoSuchElementException("Employee id " + id + " doesn't exist");
         }
-        if (projectRepository.findById(projectId).isEmpty()) {
-            throw new NoSuchElementException("Project id " + projectId + " doesn't exist");
-        }
-        employeeRepository.findById(id).get().getProjects().add(projectRepository.findById(projectId).get());
-        projectRepository.findById(projectId).get().getEmployees().add(employeeRepository.findById(id).get());
+        employeeRepository.findById(id).get().setProjects(List.of(projectRepository.findById(project.getProjectId()).get()));
+        projectRepository.findById(project.getProjectId()).get().setEmployees(List.of(employeeRepository.findById(id).get()));
     }
+
 }

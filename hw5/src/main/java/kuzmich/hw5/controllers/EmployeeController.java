@@ -40,10 +40,9 @@ public class EmployeeController {
         }
     }
 
-    @PutMapping("/{employeeId}/projects/{projectId}")
-    public ResponseEntity<Void> setProject(@PathVariable("employeeId") Long id,
-                                           @PathVariable("projectId") Long projectId) {
-        employeeService.addProject(id, projectId);
+    @PutMapping("/{employeeId}/projects")
+    public ResponseEntity<Void> setProject(@RequestBody Project project, @PathVariable("employeeId") Long id) {
+        employeeService.addProject(id, project);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 

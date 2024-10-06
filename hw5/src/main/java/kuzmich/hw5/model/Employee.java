@@ -19,8 +19,8 @@ public class Employee {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "project_employee",
-            joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "employeeId"),
-            inverseJoinColumns = @JoinColumn(name = "employee_id",
+            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "employeeId"),
+            inverseJoinColumns = @JoinColumn(name = "project_id",
                     referencedColumnName = "projectId"))
     private List<Project> projects;
 }
