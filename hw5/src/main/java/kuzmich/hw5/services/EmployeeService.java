@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -43,17 +44,23 @@ public class EmployeeService {
 
     public List<Timesheet> getTimesheets(Long id) {
         if (employeeRepository.findById(id).isEmpty()) {
-            throw new NoSuchElementException("Employee id " + id + " doesn't exist");
+            throw new NoSuchElementException("Employee " + id + " doesn't exist");
         }
         return timesheetRepository.findByEmployeeId(id);
     }
 
     public void addProject(Long id, Project project) {
         if (employeeRepository.findById(id).isEmpty()) {
-            throw new NoSuchElementException("Employee id " + id + " doesn't exist");
+            throw new NoSuchElementException("Employee " + id + " doesn't exist");
         }
-        employeeRepository.findById(id).get().setProjects(List.of(projectRepository.findById(project.getProjectId()).get()));
-        projectRepository.findById(project.getProjectId()).get().setEmployees(List.of(employeeRepository.findById(id).get()));
+        if (projectRepository.findById(project.getProjectId()).isEmpty()) {
+            throw new NoSuchElementException("Project " + id + " doesn't exist");
+        }
+        Employee employee = employeeRepository.findById(id).get();
+        Set<Project> projects = employee.getProjects();
+        projects.add(projectRepository.findById(project.getProjectId()).get());
+        employee.setProjects(projects);
+        employeeRepository.save(employee);
     }
 
 }

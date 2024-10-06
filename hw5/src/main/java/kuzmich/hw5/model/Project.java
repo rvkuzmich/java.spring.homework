@@ -18,7 +18,4 @@ public class Project {
     private Long projectId;
     private String projectName;
 
-    @ManyToMany(mappedBy = "projects")
-    private List<Employee> employees;
-
 }

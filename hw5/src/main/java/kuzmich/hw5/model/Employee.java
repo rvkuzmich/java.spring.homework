@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -22,5 +22,5 @@ public class Employee {
             joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "employeeId"),
             inverseJoinColumns = @JoinColumn(name = "project_id",
                     referencedColumnName = "projectId"))
-    private List<Project> projects;
+    private Set<Project> projects;
 }
