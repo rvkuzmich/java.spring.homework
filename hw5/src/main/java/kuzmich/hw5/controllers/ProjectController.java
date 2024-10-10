@@ -1,5 +1,11 @@
 package kuzmich.hw5.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import kuzmich.hw5.model.Project;
 import kuzmich.hw5.model.Timesheet;
 import kuzmich.hw5.services.ProjectService;
@@ -13,6 +19,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/projects")
+@Tag(name = "Projects", description = "API for projects handle")
 public class ProjectController {
 
     @Autowired
@@ -27,8 +34,19 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getAllProjects());
     }
 
+    @Operation(
+            summary = "Get project",
+            description = "Get project by its identification",
+            responses = {
+                    @ApiResponse(description = "Successful response", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = Project.class))),
+                    @ApiResponse(description = "Project not found", responseCode = "404",
+                            content = @Content(schema = @Schema(implementation = Void.class)))
+            }
+    )
     @GetMapping("/{projectId}")
-    public ResponseEntity<Project> getProjectById(@PathVariable("projectId") Long id) {
+    public ResponseEntity<Project> getProjectById(@PathVariable("projectId")
+                                                      @Parameter(description = "Project identification") Long id) {
         return projectService.getProjectById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());

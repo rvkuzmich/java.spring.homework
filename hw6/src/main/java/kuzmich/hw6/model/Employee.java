@@ -1,4 +1,4 @@
-package kuzmich.hw5.model;
+package kuzmich.hw6.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -27,6 +27,6 @@ public class Employee {
             joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "employeeId"),
             inverseJoinColumns = @JoinColumn(name = "project_id",
                     referencedColumnName = "projectId"))
-    @Schema(description = "Проекты, в которых участвовал сотрудник")
+    @Schema(description = "Проекты, в которых задействован сотрудник")
     private Set<Project> projects;
 }

@@ -1,4 +1,4 @@
-package kuzmich.hw5.controllers;
+package kuzmich.hw6.controllers;
 
 import lombok.Data;
 
@@ -10,5 +10,8 @@ public class TimesheetPageDto {
     private String id;
     private String minutes;
     private String createdAt;
+    private String employeeId;
+    private String employeeFirstName;
+    private String employeeLastName;
 
 }
