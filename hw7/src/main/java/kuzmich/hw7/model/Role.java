@@ -1,27 +1,18 @@
 package kuzmich.hw7.model;
 
-//import jakarta.persistance.*;
+import jakarta.persistance.*;
+import lombok.Data;
 
-//@Entity
-//@Table(name = "roles")
-public enum Role {
+@Data
+@Entity
+@Table(name = "roles")
+@Schema(description = "Тип роли")
+public class Role {
 
-  ADMIN("admin"), USER("user"), REST("rest");
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  private String roleId
 
-  private final String name;
-
-  Role(String name) {
-    this.name = name;
-  }
-
-  public String getName() {
-    return name;
-  }
-//  @Id
-//  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-//  private Long id;
-
-//  @Column(name = "name")
-//  private String name;
-  
+  @Column(name = "name")
+  private String name;
 }
