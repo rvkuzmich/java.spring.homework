@@ -14,8 +14,9 @@ public class SecurityConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/home/**").authenticated()
-                        .anyRequest().permitAll())
+                        .requestMatchers("/home/projects/**").hasAuthority(Role.ADMIN.getName())
+                        .requestMatchers("/home/timesheets/**").hasAnyAuthority(Role.ADMIN.getName(), Role.USER.getName())    
+                        .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
 //                .formLogin(it -> it.loginPage("/my-login.html"))
                 .build();
