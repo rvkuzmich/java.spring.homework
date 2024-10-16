@@ -24,9 +24,11 @@ public class SecurityConfiguration {
                         .requestMatchers("/home/projects/**").hasAuthority("admin")
 //                        .requestMatchers.("/home/projects/**").hasRole("admin") //MY_ROLE_PREFIX_admin
                         .requestMatchers("/home/timesheets/**").hasAnyAuthority("admin", "user")
-                        .anyRequest().hasAuthority("rest"))
+                        .anyRequest().hasAuthority("rest")
+                )
                 .formLogin(Customizer.withDefaults())
 //                .formLogin(it -> it.loginPage("/my-login.html"))
+                .csrf().disable()
                 .build();
     }
 
