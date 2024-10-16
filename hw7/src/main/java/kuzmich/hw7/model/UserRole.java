@@ -1,5 +1,8 @@
 package kuzmich.hw7.model;
 
+import jakarta.persistance.*;
+import lombok.Data;
+
 @Data
 @Entity
 @Table(name = "users_roles")
