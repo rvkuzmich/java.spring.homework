@@ -34,7 +34,24 @@ public class Hw7Application {
 		user.setLogin("user");
 		user.setPassword("$2a$12$4E/cAOYf1YOsbSb9O1mtIeLWBHFAaNrwGVrF7iyz3Xg2hJtODiDgO");
 
-		userRepository.saveAll(List.of(admin, user));
+		admin = userRepository.save(admin);
+		user = userRepository.save(user);
+
+		UserRoleRepository  userRoleRepository = ctx.getBean(UserRoleRepository.class);
+		UserRole adminAdminRole = new UserRole();
+		adminAdminRole.setId(admin.getId());
+		adminAdminRole.setRoleName(Role.ADMIN.getName());
+		userRoleRepository.save(adminAdminRole);
+
+		UserRole adminUserRole = new UserRole();
+		adminUserRole.setId(admin.getId());
+		adminUserRole.setRoleName(Role.USER.getName());
+		userRoleRepository.save(adminUserRole);
+
+		UserRole userUserRole = new UserRole();
+		userUserRole.setId(admin.getId());
+		userUserRole.setRoleName(Role.USER.getName());
+		userRoleRepository.save(userUserRole);
 
 		ProjectRepository projectRepository = ctx.getBean(ProjectRepository.class);
 		for (int i = 1; i <= 5; i++) {
