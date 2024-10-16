@@ -39,17 +39,17 @@ public class Hw7Application {
 
 		UserRoleRepository  userRoleRepository = ctx.getBean(UserRoleRepository.class);
 		UserRole adminAdminRole = new UserRole();
-		adminAdminRole.setId(admin.getId());
+		adminAdminRole.setUserId(admin.getId());
 		adminAdminRole.setRoleName(Role.ADMIN.getName());
 		userRoleRepository.save(adminAdminRole);
 
 		UserRole adminUserRole = new UserRole();
-		adminUserRole.setId(admin.getId());
+		adminUserRole.setUserId(admin.getId());
 		adminUserRole.setRoleName(Role.USER.getName());
 		userRoleRepository.save(adminUserRole);
 
 		UserRole userUserRole = new UserRole();
-		userUserRole.setId(user.getId());
+		userUserRole.setUserId(user.getId());
 		userUserRole.setRoleName(Role.USER.getName());
 		userRoleRepository.save(userUserRole);
 
