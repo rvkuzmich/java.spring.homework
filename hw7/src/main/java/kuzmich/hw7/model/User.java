@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "users")
+@Schema(description = "Тип пользователя")
 public class User {
 
     @Id
@@ -17,4 +18,12 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "role_id",
+                    referencedColumnName = "roleId"))
+    @Schema(description = "Роли пользователя")
+    private Set<Role> roles;
 }
