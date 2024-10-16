@@ -28,11 +28,11 @@ public class Hw7Application {
 		UserRepository userRepository = ctx.getBean(UserRepository.class);
 		User admin = new User();
 		admin.setLogin("admin");
-		admin.setPassword("admin");
+		admin.setPassword(BCrypt.hashpw("admin", BCrypt.genSalt()));
 
 		User user = new User();
 		user.setLogin("user");
-		user.setPassword("user");
+		user.setPassword(BCrypt.hashpw("user", BCrypt.genSalt()));
 
 		userRepository.saveAll(List.of(admin, user));
 
