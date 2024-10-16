@@ -49,7 +49,7 @@ public class Hw7Application {
 		userRoleRepository.save(adminUserRole);
 
 		UserRole userUserRole = new UserRole();
-		userUserRole.setId(admin.getId());
+		userUserRole.setId(user.getId());
 		userUserRole.setRoleName(Role.USER.getName());
 		userRoleRepository.save(userUserRole);
 
