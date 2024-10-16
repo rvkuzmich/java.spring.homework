@@ -6,7 +6,7 @@ package kuzmich.hw7.model;
 //@Table(name = "roles")
 public enum Role {
 
-  ADMIN("admin"), USER("user");
+  ADMIN("admin"), USER("user"), REST("rest");
 
   private final String name;
 
