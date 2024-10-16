@@ -16,11 +16,12 @@ public class MyCustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByLogin(username)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        List<String> userRoles = userRoleRepository.findByUserId(user.getId());
+        List<SimpleGrantedAuthority> userRoles = userRoleRepository.findByUserId(user.getId()).stream()
+            .map(it -> new SimpleGrantedAuthority(it.getRoleName())).toList();
         return new org.springframework.security.core.userdetails.User(
             user.getLogin(),
             user.getPassword(),
-            userRoles.stream().map(SimpleGrantedAuthority::new).toList()
+            userRoles
         );
     }
 }
