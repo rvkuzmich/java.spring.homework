@@ -53,6 +53,10 @@ public class Hw7Application {
 		userUserRole.setRoleName(Role.USER.getName());
 		userRoleRepository.save(userUserRole);
 
+		User anonymous = new User();
+		anonymous.setLogin("anon");
+		anonymous.setPassword("$2a$12$DHItOyBqhzLdf7Y3ZbkUU.cqJtirHnrinQPP7RC31mPPZ/WpqDo6C");
+
 		ProjectRepository projectRepository = ctx.getBean(ProjectRepository.class);
 		for (int i = 1; i <= 5; i++) {
 			Project project = new Project();
