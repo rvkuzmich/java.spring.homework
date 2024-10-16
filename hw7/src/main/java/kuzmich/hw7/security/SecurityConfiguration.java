@@ -22,7 +22,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/home/projects/**").hasAuthority(Role.ADMIN.getName())
 //                        .requestMatchers.("/home/projects/**").hasRole("admin") //MY_ROLE_PREFIX_admin
                         .requestMatchers("/home/timesheets/**").hasAnyAuthority(Role.ADMIN.getName(), Role.USER.getName())    
-                        .anyRequest().authenticated())
+                        .anyRequest().hasAuthority(Role.REST.getName()))
                 .formLogin(Customizer.withDefaults())
 //                .formLogin(it -> it.loginPage("/my-login.html"))
                 .build();
