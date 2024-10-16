@@ -11,10 +11,16 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
     @Bean
+    GrantedAuthorityDefaults grantedAuthorityDefaults() {
+        return new GrantedAuthorityDefaults("MY_ROLE_PREFIX_");
+    }
+
+    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/home/projects/**").hasAuthority(Role.ADMIN.getName())
+//                        .requestMatchers.("/home/projects/**").hasRole("admin") //MY_ROLE_PREFIX_admin
                         .requestMatchers("/home/timesheets/**").hasAnyAuthority(Role.ADMIN.getName(), Role.USER.getName())    
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
