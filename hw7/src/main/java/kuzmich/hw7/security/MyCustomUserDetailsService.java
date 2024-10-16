@@ -9,12 +9,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class MyCustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByLogin(username)
+        User user = userRepository.findByLogin(username)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        
-        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), List.of());
+
+        List<String> userRoles = userRoleRepository.findUserRolesByUserId(user.getId());
+        return new org.springframework.security.core.userdetails.User(
+            user.getLogin(),
+            user.getPassword(),
+            userRoles.stream().map(SimpleGrantedAuthority::new).toList()
+        );
     }
 }
