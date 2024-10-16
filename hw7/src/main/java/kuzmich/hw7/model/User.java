@@ -1,7 +1,10 @@
 package kuzmich.hw7.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 @Entity
@@ -11,7 +14,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private Long userId;
 
     @Column(name = "login")
     private String login;

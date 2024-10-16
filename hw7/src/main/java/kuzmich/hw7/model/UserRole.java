@@ -1,6 +1,6 @@
 package kuzmich.hw7.model;
 
-import jakarta.persistance.*;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -10,7 +10,7 @@ public class UserRole {
   
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  private Long id;
+  private Long userRoleId;
   
   @Column(name = "user_id")
   private Long userId;

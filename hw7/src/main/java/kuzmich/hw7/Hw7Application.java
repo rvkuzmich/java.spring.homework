@@ -1,19 +1,12 @@
 package kuzmich.hw7;
 
-import kuzmich.hw7.model.Employee;
-import kuzmich.hw7.model.Project;
-import kuzmich.hw7.model.Timesheet;
-import kuzmich.hw7.model.User;
-import kuzmich.hw7.repositories.EmployeeRepository;
-import kuzmich.hw7.repositories.ProjectRepository;
-import kuzmich.hw7.repositories.TimesheetRepository;
-import kuzmich.hw7.repositories.UserRepository;
+import kuzmich.hw7.model.*;
+import kuzmich.hw7.repositories.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @SpringBootApplication
@@ -37,26 +30,38 @@ public class Hw7Application {
 		admin = userRepository.save(admin);
 		user = userRepository.save(user);
 
-		UserRoleRepository  userRoleRepository = ctx.getBean(UserRoleRepository.class);
+		UserRoleRepository userRoleRepository = ctx.getBean(UserRoleRepository.class);
+
+
 		UserRole adminAdminRole = new UserRole();
-		adminAdminRole.setUserId(admin.getId());
-		adminAdminRole.setRoleName(Role.ADMIN.getName());
+		adminAdminRole.setUserId(admin.getUserId());
+		adminAdminRole.setRoleName("admin");
 		userRoleRepository.save(adminAdminRole);
 
 		UserRole adminUserRole = new UserRole();
-		adminUserRole.setUserId(admin.getId());
-		adminUserRole.setRoleName(Role.USER.getName());
+		adminUserRole.setUserId(admin.getUserId());
+		adminUserRole.setRoleName("user");
 		userRoleRepository.save(adminUserRole);
 
 		UserRole userUserRole = new UserRole();
-		userUserRole.setUserId(user.getId());
-		userUserRole.setRoleName(Role.USER.getName());
+		userUserRole.setUserId(user.getUserId());
+		userUserRole.setRoleName("user");
 		userRoleRepository.save(userUserRole);
 
 		User anonymous = new User();
 		anonymous.setLogin("anon");
 		anonymous.setPassword("$2a$12$DHItOyBqhzLdf7Y3ZbkUU.cqJtirHnrinQPP7RC31mPPZ/WpqDo6C");
 		anonymous = userRepository.save(anonymous);
+
+		User rest = new User();
+		rest.setLogin("rest");
+		rest.setPassword("$2a$12$h.TahnUtuUSc178WGcsYsuwNZ4WnofOfCEulD02H8vuONt25tq7Cu");
+		rest = userRepository.save(rest);
+
+		UserRole restRestRole = new UserRole();
+		restRestRole.setUserId(rest.getUserId());
+		restRestRole.setRoleName("rest");
+		userRoleRepository.save(restRestRole);
 
 		ProjectRepository projectRepository = ctx.getBean(ProjectRepository.class);
 		for (int i = 1; i <= 5; i++) {

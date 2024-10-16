@@ -1,8 +1,16 @@
 package kuzmich.hw7.security;
 
+import kuzmich.hw7.model.User;
+import kuzmich.hw7.repositories.UserRepository;
+import kuzmich.hw7.repositories.UserRoleRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -16,7 +24,7 @@ public class MyCustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByLogin(username)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        List<SimpleGrantedAuthority> userRoles = userRoleRepository.findByUserId(user.getId()).stream()
+        List<SimpleGrantedAuthority> userRoles = userRoleRepository.findByUserId(user.getUserId()).stream()
             .map(it -> new SimpleGrantedAuthority(it.getRoleName())).toList();
         return new org.springframework.security.core.userdetails.User(
             user.getLogin(),

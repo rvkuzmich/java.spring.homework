@@ -1,7 +1,11 @@
-pakcage kuzmich.hw7.repositories;
+package kuzmich.hw7.repositories;
 
+import kuzmich.hw7.model.UserRole;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRoleRepository implements JpaRepository<UserRole, Long> {
+import java.util.List;
 
-  List<UserRole> findByUserId(Long id);
+public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
+
+    List<UserRole> findByUserId(Long id);
 }
