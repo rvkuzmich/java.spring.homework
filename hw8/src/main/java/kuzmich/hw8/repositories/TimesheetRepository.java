@@ -1,6 +1,6 @@
 package kuzmich.hw8.repositories;
 
-import kuzmich.hw7.model.Timesheet;
+import kuzmich.hw8.model.Timesheet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
