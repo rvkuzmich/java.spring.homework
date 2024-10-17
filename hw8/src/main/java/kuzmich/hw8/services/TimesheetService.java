@@ -16,6 +16,11 @@ public class TimesheetService {
     @Autowired
     private final TimesheetRepository timesheetRepository;
 
+    public TimesheetService(TimesheetService timesheetService) {
+        this(timesheetService.timesheetRepository)
+    }
+    
+    @Autowired
     public TimesheetService(TimesheetRepository timesheetRepository) {
         this.timesheetRepository = timesheetRepository;
     }
