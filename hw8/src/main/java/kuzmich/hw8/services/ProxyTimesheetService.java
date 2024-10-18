@@ -3,6 +3,8 @@ package kuzmich.hw8.services;
 
 import kuzmich.hw8.model.Timesheet;
 
+import java.util.Optional;
+
 public class ProxyTimesheetService extends TimesheetService {
 
   private final TimesheetService original;
@@ -13,7 +15,7 @@ public class ProxyTimesheetService extends TimesheetService {
   }
 
   @Override
-  public Optional<Timesheet> original.getById(Long id) {
+  public Optional<Timesheet> getById(Long id) {
     //BEFORE
     Optional<Timesheet> result = null;
     try {

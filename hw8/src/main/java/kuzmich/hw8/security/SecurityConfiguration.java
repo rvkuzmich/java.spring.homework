@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +19,11 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    SecurityFilterChain noSecurity(HttpSecurity httpSecurity) throws Exception {
+    return httpSecurity.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(it -> it.anyRequest().permitAll()).build();
+    }
+
+//    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(requests -> requests
@@ -28,7 +34,7 @@ public class SecurityConfiguration {
                 )
                 .formLogin(Customizer.withDefaults())
 //                .formLogin(it -> it.loginPage("/my-login.html"))
-                .csrf().disable()
+                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 

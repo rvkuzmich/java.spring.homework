@@ -1,7 +1,9 @@
 package kuzmich.hw8.services;
 
+import kuzmich.hw8.aspect.Timer;
 import kuzmich.hw8.model.Timesheet;
 import kuzmich.hw8.repositories.TimesheetRepository;
+import org.slf4j.event.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +13,14 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
 
+@Timer() //(level = Level.DEBUG)
 @Service
 public class TimesheetService {
     @Autowired
     private final TimesheetRepository timesheetRepository;
 
     public TimesheetService(TimesheetService timesheetService) {
-        this(timesheetService.timesheetRepository)
+        this(timesheetService.timesheetRepository);
     }
     
     @Autowired
@@ -25,6 +28,7 @@ public class TimesheetService {
         this.timesheetRepository = timesheetRepository;
     }
 
+//    @Timer
     public Optional<Timesheet> getById(Long id) {
         return timesheetRepository.findById(id);
     }
@@ -48,6 +52,7 @@ public class TimesheetService {
         return timesheetRepository.save(timesheet);
     }
 
+//    @Timer(enabled = false)
     public void delete(Long id) {
         timesheetRepository.deleteById(id);
     }

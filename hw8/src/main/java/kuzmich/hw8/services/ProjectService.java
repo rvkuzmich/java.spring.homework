@@ -1,5 +1,6 @@
 package kuzmich.hw8.services;
 
+import kuzmich.hw8.aspect.Recover;
 import kuzmich.hw8.model.Project;
 import kuzmich.hw8.model.Timesheet;
 import kuzmich.hw8.repositories.ProjectRepository;
@@ -27,8 +28,11 @@ public class ProjectService {
         return projectRepository.findById(id);
     }
 
-    public Project createProject(Project project) {
-        return projectRepository.save(project);
+    @Recover
+    public Project createProject(Project project) throws Exception {
+        throw new Exception("smthg go wrong");
+//        throw new NoSuchFieldException("test");
+//        return projectRepository.save(project);
     }
 
     public void deleteProject(Long id) {

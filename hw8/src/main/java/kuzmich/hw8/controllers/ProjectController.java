@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import kuzmich.hw8.model.Project;
 import kuzmich.hw8.model.Timesheet;
 import kuzmich.hw8.services.ProjectService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -91,6 +92,7 @@ public class ProjectController {
             }
     )
     @PostMapping
+    @SneakyThrows
     public ResponseEntity<Project> createProject(@RequestBody @Parameter(description = "Проект для создания") Project project) {
         project = projectService.createProject(project);
         return ResponseEntity.status(HttpStatus.CREATED).body(project);
