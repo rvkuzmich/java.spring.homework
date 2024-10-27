@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggingAspect {
 
-  @Pointcut("execution(* kuzmich.hw8.services.TimesheetService.*(..))")
+  @Pointcut("execution(* kuzmich.hw10.services.TimesheetService.*(..))")
   public void timesheetServiceMethodsPointcut() {
   }
 

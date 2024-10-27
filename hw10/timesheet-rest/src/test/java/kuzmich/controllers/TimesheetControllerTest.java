@@ -152,7 +152,7 @@ class TimesheetControllerTest {
         timesheetToCreate.setEmployeeId(employeeResponse.getBody().getEmployeeId());
 
         ResponseEntity<Timesheet> timesheetResponse = restClient.post()
-                .uri("/timesheets")
+                .uri("/" + projectResponse.getBody().getProjectId() + "/timesheets")
                 .body(timesheetToCreate)
                 .retrieve()
                 .toEntity(Timesheet.class);

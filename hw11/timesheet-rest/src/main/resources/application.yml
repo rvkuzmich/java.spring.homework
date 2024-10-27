@@ -1,0 +1,26 @@
+application:
+  logging:
+    enabled: true
+    print-args: true
+    level: WARN
+  recover:
+    enabled: true
+    no-recover-for:
+      - java.lang.IllegalArgumentException
+      - java.lang.IllegalStateException
+sever:
+  port: 8080
+spring:
+  application:
+    name: timesheet-rest
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    preferIpAddress: true

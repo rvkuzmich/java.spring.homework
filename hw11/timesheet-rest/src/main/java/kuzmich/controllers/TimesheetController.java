@@ -37,7 +37,7 @@ public class TimesheetController {
         return ResponseEntity.ok(timesheetService.getAllTimesheets(createdAtBefore, createdAtAfter));
     }
 
-    @PostMapping("/{projectId}/timesheets")
+    @PostMapping
     public ResponseEntity<Timesheet> create(@RequestBody Timesheet timesheet, @PathVariable("projectId") Long projectId) {
         if (projectController.getProjectById(projectId).getStatusCode().equals(HttpStatusCode.valueOf(200))) {
             timesheet.setProjectId(projectId);

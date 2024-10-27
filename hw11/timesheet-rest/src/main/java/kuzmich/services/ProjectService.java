@@ -1,8 +1,9 @@
 package kuzmich.services;
 
-import kuzmich.aspect.Recover;
+import kuzmich.aspect.logging.Logging;
 import kuzmich.model.Project;
 import kuzmich.model.Timesheet;
+import kuzmich.aspect.recover.Recover;
 import kuzmich.repositories.ProjectRepository;
 import kuzmich.repositories.TimesheetRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,16 +25,21 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
+    @Logging
     public Optional<Project> getProjectById(Long id) {
         return projectRepository.findById(id);
     }
 
     @Recover
     public Project createProject(Project project) throws Exception {
-//        throw new Exception("smthg go wrong");
-//        throw new NoSuchFieldException("test");
-        return projectRepository.save(project);
+//        throw new Exception("something go wrong");
+        throw new IllegalArgumentException("test");
+//        return projectRepository.save(project);
     }
+
+//    public Project createProject(Project project) {
+//        return projectRepository.save(project);
+//    }
 
     public void deleteProject(Long id) {
         projectRepository.deleteById(id);

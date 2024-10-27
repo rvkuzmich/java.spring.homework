@@ -16,11 +16,11 @@ import java.lang.reflect.Method;
 @Component
 public class TimerAspect {
 
-    @Pointcut("@annotation(kuzmich.hw10.aspect.Timer)")
+    @Pointcut("@annotation(kuzmich.hw11.aspect.Timer)")
     public void timerMethodsPointcut() {
     }
 
-    @Pointcut("@within(kuzmich.hw10.aspect.Timer)")
+    @Pointcut("@within(kuzmich.hw11.aspect.Timer)")
     public void timerTypePointcut() {
     }
 
